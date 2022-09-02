@@ -1,10 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User as DjangoUser
+from django.contrib.auth.models import User as DjangoUser, AbstractUser
 # Create your models here.
-from django.utils.timezone import now
 
 
-class User(DjangoUser):
+class User(AbstractUser):
     screen_name = models.CharField(max_length=128, blank=True, null=True)
 
     class Meta:

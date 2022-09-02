@@ -33,7 +33,7 @@ class QuizCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context['user']
-        validated_data['created_by'] = User.objects.get(id=user.id)
+        validated_data['created_by'] = user
 
         return super().create(validated_data)
 

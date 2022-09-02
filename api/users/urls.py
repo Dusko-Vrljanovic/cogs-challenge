@@ -12,6 +12,7 @@ app_name = 'users'
 urlpatterns = [
     path('register/', views.UserRegisterView.as_view(), name='register'),
     path('login/', TokenObtainPairView.as_view(), name='login'),
-    path('login/refresh/', TokenRefreshView.as_view(), name='refresh')
+    path('login/refresh/', TokenRefreshView.as_view(), name='refresh'),
+    path('me/', views.UserDetailsView.as_view(), name='me')
 ]
 
