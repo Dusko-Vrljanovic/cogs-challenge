@@ -1,0 +1,21 @@
+version: '3'
+services:
+  postgres:
+    container_name: cogs-postgres
+    image: postgres:13
+    ports:
+      - "5482:5432"
+    env_file:
+      - .env
+
+  cogs-api:
+    container_name: cogs-api
+    build: .
+    command: bash -c "./manage.py migrate && ./manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_started
