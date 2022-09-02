@@ -101,6 +101,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             'id',
             'order_number',
             'text',
+            'is_multiple_choice',
             'answers'
         )
 

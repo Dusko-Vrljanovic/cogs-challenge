@@ -26,8 +26,45 @@ class Quiz(models.Model):
     def questions_count(self):
         return self.questions.count()
 
+    @property
+    def question_and_answer_ids(self):
+        quiz_questions = dict()
+        for question in self.questions.all():
+            answer_ids = set()
+            correct_answer_ids = set()
+            for answer in question.answers.all():
+                answer_ids.add(answer.id)
+                if answer.is_correct:
+                    correct_answer_ids.add(answer.id)
+
+            quiz_questions[question.id] = dict(
+                question=question,
+                answers=answer_ids,
+                correct_answers=correct_answer_ids
+            )
+
+        return quiz_questions
+
     def can_user_update(self, user_id):
         return self.created_by.id == user_id
+
+    def get_user_attempts(self, user):
+        return self.attempts.filter(user=user)
+
+    def get_current_run(self, user):
+        return self.get_user_attempts(user).filter(
+            finished_at__isnull=True
+        ).first()
+
+    def get_last_score(self, user):
+        return self.get_user_attempts(user).filter(
+            finished_at__isnull=False
+        ).order_by('-started_at').first()
+
+    def get_best_score(self, user):
+        return self.get_user_attempts(user).filter(
+            finished_at__isnull=False
+        ).order_by('-score').first()
 
 
 class Question(models.Model):

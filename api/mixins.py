@@ -26,7 +26,13 @@ class GetObjectMixin(GenericAPIView):
                 object_id = self.kwargs.get('object_id')
             else:
                 object_id = self.kwargs.get('quiz_id')
-            return get_object_or_404(self.model.objects.all(), id=object_id)
+
+            kwargs = {'id': object_id}
+            additional_kwargs = self.kwargs.get('additional_kwargs')
+            if additional_kwargs:
+                kwargs = {**kwargs, **additional_kwargs}
+
+            return get_object_or_404(self.model.objects.all(), **kwargs)
 
         return Response(_('Not found'), status=status.HTTP_404_NOT_FOUND)
 
