@@ -7,10 +7,11 @@ To run project you can proceed in two ways:
     ```.env``` and set connection parameters for database. 
     You could work on system python, but it's recommended to create 
     virtual environment and activate it. After that install dependencies with
-    ```pip insall -r requirements.txt``` and run migration with
+    ```pip insall -r requirements.dev.txt``` and run migration with
     ```python manage.py migrate```. And lastly, run 
     ```python manage.py runserver 0.0.0.0:8000``` (or choose other
-    port to your liking). That's it, api should be up and running.
+    port to your liking). That's it, api should be up and running.  
+    Tests can be run with ```python manage.py test --settings=cogs_quiz.test```
   * Other option is to run it through docker. Make sure you have 
     docker and docker-compose installed and enabled on your system. Start with copying
     ```.env.docker``` to ```.env```. You can modify these variables, but it 
@@ -25,7 +26,7 @@ To run project you can proceed in two ways:
     ``baseurl/v1/users/register/`` - Create new user   
     ``baseurl/v1/users/login/`` - Login using username and password, get jwt access token to use in header
                                   and refresh_token to use when access_token expires  
-    ``baseurl/v1/users/login/refresh/``  - Refresh access token
+    ``baseurl/v1/users/login/refresh/``  - Refresh access token  
     ``baseurl/v1/users/me/`` - Get basic data for logged user
   
   * Models and endpoints for quizzes, questions and answers  

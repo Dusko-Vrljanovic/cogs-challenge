@@ -83,6 +83,9 @@ class CreateQuestionSerializer(serializers.ModelSerializer):
             if answer.get('is_correct'):
                 has_correct_answer = True
 
+            # TODO - question can only have one answer
+
+
         if not has_correct_answer:
             raise ValidationError({
                 'answers': _('You have to have at least one correct answer')
